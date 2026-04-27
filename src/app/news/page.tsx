@@ -3,6 +3,14 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { ArrowRight, Newspaper } from "lucide-react";
 
+type PostRow = {
+  id: string;
+  title: string;
+  summary: string;
+  slug: string;
+  publishedAt: Date | null;
+};
+
 export const metadata: Metadata = {
   title: "News & Updates",
   description: "The latest news, project updates, and announcements from CCDV.",
@@ -39,7 +47,7 @@ export default async function NewsPage() {
           </div>
         ) : (
           <div className="space-y-6">
-            {posts.map((post) => (
+            {posts.map((post: PostRow) => (
               <Link
                 key={post.id}
                 href={`/news/${post.slug}`}

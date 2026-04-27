@@ -3,6 +3,14 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { ArrowRight, Leaf, TrendingUp, Users, MapPin } from "lucide-react";
 
+type PostRow = {
+  id: string;
+  title: string;
+  summary: string;
+  slug: string;
+  publishedAt: Date | null;
+};
+
 export default async function HomePage() {
   const recentPosts = await prisma.newsPost
     .findMany({
@@ -153,7 +161,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {recentPosts.map((post) => (
+              {recentPosts.map((post: PostRow) => (
                 <Link
                   key={post.id}
                   href={`/news/${post.slug}`}
