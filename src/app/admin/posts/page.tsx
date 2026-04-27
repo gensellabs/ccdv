@@ -4,6 +4,14 @@ import { isAdminAuthenticated } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Plus, Edit, ArrowLeft } from "lucide-react";
 
+type PostRow = {
+  id: string;
+  title: string;
+  published: boolean;
+  publishedAt: Date | null;
+  createdAt: Date;
+};
+
 export default async function AdminPostsPage() {
   const authed = await isAdminAuthenticated();
   if (!authed) redirect("/admin");
@@ -37,7 +45,7 @@ export default async function AdminPostsPage() {
           <p className="text-gray-400 text-center py-12">No posts yet. Create your first post.</p>
         ) : (
           <div className="space-y-3">
-            {posts.map((post) => (
+            {posts.map((post: PostRow) => (
               <div
                 key={post.id}
                 className="bg-white rounded-xl border border-gray-200 p-5 flex items-center justify-between shadow-sm"
