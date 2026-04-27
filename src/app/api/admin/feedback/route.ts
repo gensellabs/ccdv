@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { isAdminAuthenticated } from "@/lib/auth";
-import type { ModerationStatus } from "@prisma/client";
+
+type ModerationStatus = "APPROVED" | "REJECTED" | "PENDING";
 
 export async function PATCH(req: NextRequest) {
   if (!(await isAdminAuthenticated())) {

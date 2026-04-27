@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendFeedbackNotification } from "@/lib/email";
-import type { FeedbackTopic } from "@prisma/client";
+
+type FeedbackTopic = "LANDOWNERS" | "INVESTORS" | "GENERAL";
 
 const VALID_TOPICS: FeedbackTopic[] = ["LANDOWNERS", "INVESTORS", "GENERAL"];
 
