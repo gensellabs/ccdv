@@ -1,12 +1,17 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 const TO_EMAIL = process.env.ADMIN_EMAIL ?? "info@ccdv.co.za";
 const CC_EMAIL = process.env.ADMIN_EMAIL_CC ?? "theoengels@me.com";
-const FROM_EMAIL = process.env.FROM_EMAIL ?? "onboarding@resend.dev";
 
-function getResend() {
-  if (!process.env.RESEND_API_KEY) return null;
-  return new Resend(process.env.RESEND_API_KEY);
+function getTransporter() {
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  if (!user || !pass) return null;
+
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: { user, pass },
+  });
 }
 
 export async function sendContactNotification(data: {
@@ -15,11 +20,14 @@ export async function sendContactNotification(data: {
   phone?: string;
   message: string;
 }) {
-  const resend = getResend();
-  if (!resend) return;
+  const transporter = getTransporter();
+  if (!transporter) {
+    console.warn("[email] GMAIL_USER or GMAIL_APP_PASSWORD not set — skipping email");
+    return;
+  }
 
-  await resend.emails.send({
-    from: FROM_EMAIL,
+  await transporter.sendMail({
+    from: `"CCDV Website" <${process.env.GMAIL_USER}>`,
     to: TO_EMAIL,
     cc: CC_EMAIL,
     subject: `New contact form submission from ${data.name}`,
@@ -41,8 +49,11 @@ export async function sendFeedbackNotification(data: {
   subject: string;
   message: string;
 }) {
-  const resend = getResend();
-  if (!resend) return;
+  const transporter = getTransporter();
+  if (!transporter) {
+    console.warn("[email] GMAIL_USER or GMAIL_APP_PASSWORD not set — skipping email");
+    return;
+  }
 
   const topicLabel: Record<string, string> = {
     LANDOWNERS: "Landowners",
@@ -50,8 +61,8 @@ export async function sendFeedbackNotification(data: {
     GENERAL: "General",
   };
 
-  await resend.emails.send({
-    from: FROM_EMAIL,
+  await transporter.sendMail({
+    from: `"CCDV Website" <${process.env.GMAIL_USER}>`,
     to: TO_EMAIL,
     cc: CC_EMAIL,
     subject: `New community feedback [${topicLabel[data.topic] ?? data.topic}] — awaiting moderation`,
