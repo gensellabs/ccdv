@@ -14,12 +14,13 @@ export async function POST(req: NextRequest) {
       data: { name, email, phone: phone || null, message },
     });
 
-    await sendContactNotification({ name, email, phone, message }).catch(() => {
-      // Email failure is non-fatal; submission is still saved
+    await sendContactNotification({ name, email, phone, message }).catch((err) => {
+      console.error("[contact] email send failed:", err);
     });
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("[contact] handler error:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

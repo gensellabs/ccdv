@@ -29,12 +29,13 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    await sendFeedbackNotification({ name, email, topic, subject, message }).catch(() => {
-      // Email failure is non-fatal
+    await sendFeedbackNotification({ name, email, topic, subject, message }).catch((err) => {
+      console.error("[feedback] email send failed:", err);
     });
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("[feedback] handler error:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
