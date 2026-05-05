@@ -116,7 +116,7 @@ export default async function HomePage() {
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
                 <em>Portulacaria afra</em>, known locally as Spekboom, is a remarkable
-                native succulent capable of sequestering up to 4.2 tonnes of carbon per
+                native succulent capable of sequestering up to 10 tonnes of carbon per
                 hectare per year — rivalling tropical rainforests. South Africa's
                 thicket restoration movement, of which CCDV is a proud part, targets
                 800,000 hectares of degraded Eastern Cape land.
@@ -133,7 +133,7 @@ export default async function HomePage() {
                 {[
                   { value: "800,000", label: "Hectares targeted by 2030" },
                   { value: "60+", label: "Restoration initiatives" },
-                  { value: "4.2t", label: "CO₂ per hectare per year" },
+                  { value: "10t", label: "CO₂ per hectare per year" },
                   { value: "11,000+", label: "Jobs through restoration" },
                 ].map((stat) => (
                   <div key={stat.label} className="bg-white rounded-xl p-4 shadow-sm">

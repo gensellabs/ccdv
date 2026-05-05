@@ -29,7 +29,7 @@ export default function ThePlantPage() {
         {/* Key stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
           {[
-            { value: "4.2t", label: "CO₂ sequestered per hectare per year" },
+            { value: "10t", label: "CO₂ sequestered per hectare per year" },
             { value: "800k ha", label: "Degraded thicket targeted for restoration" },
             { value: "60+", label: "Active restoration initiatives" },
             { value: "2025", label: "Named UN Decade on Ecosystem Restoration flagship" },
@@ -65,7 +65,7 @@ export default function ThePlantPage() {
           <h2>Why Does It Matter for Carbon?</h2>
           <p>
             Spekboom thicket stores carbon at rates comparable to tropical rainforests —
-            up to <strong>4.2 tonnes of CO₂ per hectare per year</strong> — yet it grows
+            up to <strong>10 tonnes of CO₂ per hectare per year</strong> — yet it grows
             in semi-arid conditions where most high-carbon ecosystems cannot survive.
             Restored thicket also stores significant carbon in the soil, making the
             long-term carbon balance even more compelling.
